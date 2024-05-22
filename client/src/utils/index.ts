@@ -38,7 +38,10 @@ export const calculateAccuracyPercentage = ({
 }) => {
   if (totalTyped > 0) {
     const correct = totalTyped - errors;
-    return (correct / totalWords) * 100;
+    const accuracy = (correct / totalWords) * 100;
+    if (accuracy > 100) return 100;
+    else if (accuracy < 0) return 0;
+    else return accuracy;
   }
 
   return 0;
