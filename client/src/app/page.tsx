@@ -1,11 +1,14 @@
-import { ThemeToggle } from "@/components/buttons/theme-toggle";
-import { Button } from "@/components/ui/button";
+import CountdownTimer from "@/components/layout/CountdownTimer";
+import Header from "@/components/layout/Header";
+import Wrapper from "@/components/layout/Wrapper";
 
 export default function Home() {
   return (
-    <div className='flex gap-2 items-center justify-center p-5'>
-      <Button>home</Button>
-      <ThemeToggle />
+    <div>
+      <Header />
+      <Wrapper>
+        <CountdownTimer />
+      </Wrapper>
     </div>
   );
 }
