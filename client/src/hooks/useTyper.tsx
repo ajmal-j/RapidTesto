@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useCallback, useEffect, useState } from "react";
 import { useCountdown } from "./useCountdown";
@@ -36,16 +36,9 @@ export const useTyper = () => {
     resetTotalTyped();
     setErrors(0);
     updateWords();
-    startCountdown();
     clearTyped();
     setTypeState("start");
-  }, [
-    resetCountdown,
-    resetTotalTyped,
-    startCountdown,
-    updateWords,
-    clearTyped,
-  ]);
+  }, [resetCountdown, resetTotalTyped, updateWords, clearTyped]);
 
   const calculateErrors = useCallback(() => {
     const wordsReached = words.substring(

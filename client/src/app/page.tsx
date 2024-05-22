@@ -1,5 +1,6 @@
 "use client";
 
+import RestartButton from "@/components/buttons/Restart";
 import CountdownTimer from "@/components/layout/CountdownTimer";
 import GenerateWords from "@/components/layout/GenerateWords";
 import Header from "@/components/layout/Header";
@@ -28,6 +29,7 @@ export default function Home() {
           <GenerateWords words={words} />
           <Typings words={words} typed={typed} />
         </WordContainer>
+        <RestartButton restartTyping={restartTyping} />
       </Wrapper>
     </div>
   );

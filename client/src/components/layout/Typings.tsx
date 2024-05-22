@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import Caret from "./Caret";
+import Caret from "../buttons/Caret";
 
 export default function Typings({
   words,
