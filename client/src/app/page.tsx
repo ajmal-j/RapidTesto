@@ -2,6 +2,7 @@
 
 import RestartButton from "@/components/buttons/Restart";
 import SettingsDropdown from "@/components/buttons/Settings";
+import StartButton from "@/components/buttons/Start";
 import CountdownTimer from "@/components/layout/CountdownTimer";
 import GenerateWords from "@/components/layout/GenerateWords";
 import Header from "@/components/layout/Header";
@@ -9,7 +10,6 @@ import Results from "@/components/layout/Results";
 import Typings from "@/components/layout/Typings";
 import WordContainer from "@/components/layout/WordContainer";
 import Wrapper from "@/components/layout/Wrapper";
-import { Button } from "@/components/ui/button";
 import useSettings from "@/hooks/useSettings";
 import { useTyper } from "@/hooks/useTyper";
 import { calculateAccuracyPercentage } from "@/utils";
@@ -47,13 +47,7 @@ export default function Home() {
           <CountdownTimer timeLeft={timeLeft} isFinished={isFinished} />
 
           <div className='flex gap-2 items-center'>
-            <Button
-              disabled={isEnabled}
-              variant={"outline"}
-              onClick={() => setIsEnabled(true)}
-            >
-              Start
-            </Button>
+            <StartButton {...{ isEnabled, setIsEnabled }} />
             <SettingsDropdown
               {...{
                 count,
