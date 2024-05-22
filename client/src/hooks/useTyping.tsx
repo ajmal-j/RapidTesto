@@ -6,9 +6,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 export const useTyping = ({
   enabled,
   isFinished,
+  backspace,
 }: {
   enabled: boolean;
   isFinished: boolean;
+  backspace: boolean;
 }) => {
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const [typed, setTyped] = useState<string>("");
@@ -20,6 +22,7 @@ export const useTyping = ({
       if (isFinished) return;
 
       if (key === "Backspace") {
+        if (!backspace) return;
         setTyped((prev) => prev.slice(0, -1));
         setCursorPosition((prev) => prev - 1);
         totalTypedRef.current -= 1;
@@ -29,7 +32,7 @@ export const useTyping = ({
         totalTypedRef.current += 1;
       }
     },
-    [enabled, isFinished]
+    [enabled, isFinished, backspace]
   );
 
   const clearTyped = () => {

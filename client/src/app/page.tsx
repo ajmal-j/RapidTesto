@@ -15,7 +15,8 @@ import { useTyper } from "@/hooks/useTyper";
 import { calculateAccuracyPercentage } from "@/utils";
 
 export default function Home() {
-  const { count, seconds, setCount, setSeconds } = useSettings();
+  const { count, seconds, setCount, setSeconds, backspace, setBackspace } =
+    useSettings();
   const {
     timeLeft,
     typeState,
@@ -31,6 +32,7 @@ export default function Home() {
   } = useTyper({
     count,
     seconds,
+    backspace,
   });
 
   const accuracyPercentage = calculateAccuracyPercentage({
@@ -45,7 +47,6 @@ export default function Home() {
       <Wrapper>
         <div className='flex gap-2 justify-between items-center'>
           <CountdownTimer timeLeft={timeLeft} isFinished={isFinished} />
-
           <div className='flex gap-2 items-center'>
             <StartButton {...{ isEnabled, setIsEnabled }} />
             <SettingsDropdown
@@ -56,6 +57,8 @@ export default function Home() {
                 setSeconds,
                 isEnabled,
                 setIsEnabled,
+                setBackspace,
+                backspace,
               }}
             />
           </div>
@@ -65,6 +68,7 @@ export default function Home() {
           <Typings
             words={words}
             typed={typed}
+            setIsEnabled={setIsEnabled}
             isFinished={isFinished || !isEnabled}
           />
         </WordContainer>

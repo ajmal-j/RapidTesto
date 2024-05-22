@@ -11,9 +11,11 @@ export type TypeState = "start" | "run" | "finished";
 export const useTyper = ({
   count,
   seconds,
+  backspace,
 }: {
   seconds: number;
   count: number;
+  backspace: boolean;
 }) => {
   const [typeState, setTypeState] = useState<TypeState>("start");
   const [errors, setErrors] = useState<number>(0);
@@ -32,6 +34,7 @@ export const useTyper = ({
     useTyping({
       enabled: isEnabled,
       isFinished,
+      backspace,
     });
 
   const isStarting = typeState === "start" && cursorPosition > 0;

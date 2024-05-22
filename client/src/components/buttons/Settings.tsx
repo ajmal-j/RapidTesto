@@ -8,10 +8,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Settings } from "lucide-react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { Label } from "@/components/ui/label";
 
 interface SettingsDropdownProps {
   count: number;
@@ -20,13 +21,17 @@ interface SettingsDropdownProps {
   setSeconds: Dispatch<SetStateAction<number>>;
   isEnabled: boolean;
   setIsEnabled: Dispatch<SetStateAction<boolean>>;
+  backspace: boolean;
+  setBackspace: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function SettingsDropdown({
   count,
   seconds,
   setCount,
+  backspace,
   setSeconds,
+  setBackspace,
   setIsEnabled,
 }: SettingsDropdownProps) {
   const [open, setOpen] = useState<boolean>(false);
@@ -68,12 +73,23 @@ export default function SettingsDropdown({
           <Settings size={16} />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
-        <DropdownMenuLabel>Settings</DropdownMenuLabel>
+      <DropdownMenuContent align='end' className='space-y-1'>
+        <DropdownMenuLabel className='font-semibold text-primary/50'>
+          Settings
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <div className='flex items-center justify-between gap-2 px-2 py-3'>
+          <Label htmlFor='backspace'>Backspace</Label>
+          <Switch
+            id='backspace'
+            checked={backspace}
+            onCheckedChange={setBackspace}
+          />
+        </div>
         <DropdownMenuSeparator />
         <div
           onClick={(e) => e.preventDefault()}
-          className='flex flex-col gap-2 justify-end py-2 px-1'
+          className='flex flex-col gap-2 justify-end px-2 py-3'
         >
           <Label htmlFor='seconds'>
             Time: <span className='text-primary/40'>(in seconds)</span>
