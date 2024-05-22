@@ -104,9 +104,10 @@ export default function SettingsDropdown({
           <div className='flex justify-end w-full'>
             <Button
               disabled={input.count === count && input.seconds === seconds}
+              size={"sm"}
               onClick={handleApply}
             >
-              Apply
+              apply
             </Button>
           </div>
         </div>
