@@ -8,21 +8,23 @@ import { countErrors } from "@/utils";
 
 export type TypeState = "start" | "run" | "finished";
 
-const NUMBER_OF_WORDS = 5;
-
-const COUNTDOWN_SECONDS = 30;
-
-export const useTyper = () => {
+export const useTyper = ({
+  count,
+  seconds,
+}: {
+  seconds: number;
+  count: number;
+}) => {
   const [typeState, setTypeState] = useState<TypeState>("start");
   const [errors, setErrors] = useState<number>(0);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const { resetCountdown, startCountdown, timeLeft, stopCountdown } =
     useCountdown({
-      seconds: COUNTDOWN_SECONDS,
+      seconds,
     });
 
   const { words, updateWords } = useWords({
-    count: NUMBER_OF_WORDS,
+    count,
   });
 
   const { cursorPosition, typed, clearTyped, totalTyped, resetTotalTyped } =
@@ -69,6 +71,7 @@ export const useTyper = () => {
     if (!timeLeft && typeState === "run") {
       setTypeState("finished");
       calculateErrors();
+      setIsFinished(true);
     }
   }, [timeLeft, typeState, calculateErrors]);
 
@@ -86,7 +89,7 @@ export const useTyper = () => {
 
   return {
     typeState,
-    totalTime: COUNTDOWN_SECONDS,
+    totalTime: seconds,
     words,
     typed,
     errors,

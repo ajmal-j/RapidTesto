@@ -10,8 +10,12 @@ import WordContainer from "@/components/layout/WordContainer";
 import Wrapper from "@/components/layout/Wrapper";
 import { useTyper } from "@/hooks/useTyper";
 import { calculateAccuracyPercentage } from "@/utils";
+import { useState } from "react";
 
 export default function Home() {
+  const [seconds, setSeconds] = useState(6);
+  const [count, setCount] = useState(20);
+
   const {
     timeLeft,
     typeState,
@@ -22,11 +26,15 @@ export default function Home() {
     words,
     totalTime,
     isFinished,
-  } = useTyper();
+  } = useTyper({
+    count,
+    seconds,
+  });
 
   const accuracyPercentage = calculateAccuracyPercentage({
-    errors,
     totalTyped,
+    totalWords: words.length,
+    errors,
   });
 
   return (

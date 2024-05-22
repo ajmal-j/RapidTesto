@@ -52,8 +52,8 @@ export default function Results({
           <span className='pe-2'>Speed :</span>
           {
             calculateWPM({
-              correctLetters: words.length,
-              timeTaken: Math.min(timeLeft, totalTime),
+              correctLetters: totalTyped,
+              timeTaken: totalTime - timeLeft,
               wrongLetters: errors,
             }).concat(" WPM") as string
           }

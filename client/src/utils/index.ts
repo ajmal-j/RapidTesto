@@ -1,3 +1,5 @@
+import { error } from "console";
+
 export const isKeyboardCodeAllowed = ({ code }: { code: string }) => {
   return (
     code.startsWith("Key") ||
@@ -26,15 +28,17 @@ export const countErrors = ({
 };
 
 export const calculateAccuracyPercentage = ({
-  errors,
   totalTyped,
+  totalWords,
+  errors,
 }: {
-  errors: number;
   totalTyped: number;
+  totalWords: number;
+  errors: number;
 }) => {
   if (totalTyped > 0) {
-    const corrects = totalTyped - errors;
-    return (corrects / totalTyped) * 100;
+    const correct = totalTyped - errors;
+    return (correct / totalWords) * 100;
   }
 
   return 0;
