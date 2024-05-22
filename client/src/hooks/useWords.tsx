@@ -1,3 +1,5 @@
+"use client";
+
 import { faker } from "@faker-js/faker";
 import { useCallback, useState } from "react";
 

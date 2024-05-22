@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect, useState } from "react";
 import { useCountdown } from "./useCountdown";
 import { useWords } from "./useWords";

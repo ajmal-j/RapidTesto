@@ -1,9 +1,4 @@
-"use client";
-
-import { useTyper } from "@/hooks/useTyper";
-
-export default function CountdownTimer() {
-  const { timeLeft } = useTyper();
+export default function CountdownTimer({ timeLeft }: { timeLeft: number }) {
   return (
     <div>
       <h2 className='font-medium'>Time : {timeLeft} </h2>

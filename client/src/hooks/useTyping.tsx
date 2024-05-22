@@ -1,3 +1,5 @@
+'use client';
+
 import { isKeyboardCodeAllowed } from "@/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 
