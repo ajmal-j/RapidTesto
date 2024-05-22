@@ -1,9 +1,15 @@
-'use client';
+"use client";
 
 import { isKeyboardCodeAllowed } from "@/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export const useTyping = ({ enabled }: { enabled: boolean }) => {
+export const useTyping = ({
+  enabled,
+  isFinished,
+}: {
+  enabled: boolean;
+  isFinished: boolean;
+}) => {
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const [typed, setTyped] = useState<string>("");
   const totalTypedRef = useRef<number>(0);
@@ -11,6 +17,7 @@ export const useTyping = ({ enabled }: { enabled: boolean }) => {
   const handleKeydown = useCallback(
     ({ key, code }: KeyboardEvent) => {
       if (!enabled || !isKeyboardCodeAllowed({ code })) return;
+      if (isFinished) return;
 
       if (key === "Backspace") {
         setTyped((prev) => prev.slice(0, -1));
@@ -22,7 +29,7 @@ export const useTyping = ({ enabled }: { enabled: boolean }) => {
         totalTypedRef.current += 1;
       }
     },
-    [enabled]
+    [enabled, isFinished]
   );
 
   const clearTyped = () => {

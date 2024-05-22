@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -22,6 +22,11 @@ export const useCountdown = ({ seconds }: { seconds: number }) => {
     setTimeLeft(seconds);
   }, [seconds]);
 
+  const stopCountdown = useCallback(() => {
+    clearInterval(intervalRef?.current!);
+    intervalRef.current = null;
+  }, []);
+
   useEffect(() => {
     if (hasTimerEnded) {
       clearInterval(intervalRef?.current!);
@@ -33,5 +38,5 @@ export const useCountdown = ({ seconds }: { seconds: number }) => {
     return () => clearInterval(intervalRef?.current!);
   }, []);
 
-  return { timeLeft, startCountdown, resetCountdown };
+  return { timeLeft, startCountdown, resetCountdown, stopCountdown };
 };

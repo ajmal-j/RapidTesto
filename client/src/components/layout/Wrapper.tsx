@@ -1,5 +1,11 @@
 import { cn } from "@/lib/utils";
+import { Poppins } from "next/font/google";
 import { ReactNode } from "react";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 export default function Wrapper({
   children,
@@ -12,7 +18,8 @@ export default function Wrapper({
     <div
       className={cn(
         "mx-auto w-full min-h-[calc(100vh_-_10rem)] max-w-screen-xl px-2.5 pt-2.5 md:px-20 md:pt-3",
-        className
+        className,
+        poppins.className
       )}
     >
       {children}
