@@ -63,3 +63,18 @@ export function calculateWPM({
   const wpm = totalWords / timeInMinutes;
   return wpm.toFixed(2);
 }
+
+export function formatTime(seconds: number) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  if (minutes === 0) {
+    return `0 : ${
+      remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds
+    }`;
+  } else {
+    return `${minutes} : ${
+      remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds
+    }`;
+  }
+}

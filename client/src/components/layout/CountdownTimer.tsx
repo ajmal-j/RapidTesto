@@ -1,3 +1,5 @@
+import { formatTime } from "@/utils";
+
 export default function CountdownTimer({
   timeLeft,
   isFinished,
@@ -9,7 +11,9 @@ export default function CountdownTimer({
     <div>
       <h2 className='font-medium text-nowrap'>
         Time :{" "}
-        <span className='font-bold text-xl tabular-nums'>{timeLeft}</span>
+        <span className='font-bold text-xl tabular-nums'>
+          {formatTime(timeLeft)}
+        </span>
         <span className='text-primary/50 ps-1'>
           {isFinished ? "second's left." : ""}
         </span>
