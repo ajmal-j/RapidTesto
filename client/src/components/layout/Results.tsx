@@ -65,6 +65,13 @@ export default function Results({
         >
           <span className='pe-2'>Typed :</span> {totalTyped}
         </motion.li>
+
+        <motion.li
+          {...{ initial, animate, transition: { duration: 1.2 } }}
+          className='text-xl  text-primary/80'
+        >
+          <span className='pe-2'>Missed : </span> {errors} / {totalTyped}
+        </motion.li>
       </div>
     </motion.div>
   );
