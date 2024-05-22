@@ -4,9 +4,11 @@ import Caret from "../buttons/Caret";
 export default function Typings({
   words,
   typed,
+  isFinished,
 }: {
   words: string;
   typed: string;
+  isFinished: boolean;
 }) {
   const typedCharacters = typed.split("");
 
@@ -15,7 +17,7 @@ export default function Typings({
       {typedCharacters.map((char, i) => (
         <Character key={i} actual={char} expected={words[i]} />
       ))}
-      <Caret />
+      <Caret isFinished={isFinished} />
     </div>
   );
 }

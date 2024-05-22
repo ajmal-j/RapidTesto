@@ -36,7 +36,7 @@ export default function Home() {
         <CountdownTimer timeLeft={timeLeft} isFinished={isFinished} />
         <WordContainer>
           <GenerateWords words={words} />
-          <Typings words={words} typed={typed} />
+          <Typings words={words} typed={typed} isFinished={isFinished} />
         </WordContainer>
         <RestartButton restartTyping={restartTyping} />
         <Results

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 
-export default function Caret() {
+export default function Caret({ isFinished }: { isFinished: boolean }) {
+  if (isFinished) return null;
+  
   return (
     <motion.div
       aria-hidden={true}
