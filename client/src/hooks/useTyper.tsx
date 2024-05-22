@@ -18,6 +18,7 @@ export const useTyper = ({
   const [typeState, setTypeState] = useState<TypeState>("start");
   const [errors, setErrors] = useState<number>(0);
   const [isFinished, setIsFinished] = useState<boolean>(false);
+  const [isEnabled, setIsEnabled] = useState<boolean>(typeState !== "finished");
   const { resetCountdown, startCountdown, timeLeft, stopCountdown } =
     useCountdown({
       seconds,
@@ -29,7 +30,7 @@ export const useTyper = ({
 
   const { cursorPosition, typed, clearTyped, totalTyped, resetTotalTyped } =
     useTyping({
-      enabled: typeState !== "finished",
+      enabled: isEnabled,
       isFinished,
     });
 
@@ -87,6 +88,12 @@ export const useTyper = ({
     setIsFinished(() => cursorPosition === words.length);
   }, [words, cursorPosition]);
 
+  useEffect(() => {
+    if (seconds && count) {
+      restartTyping();
+    }
+  }, [seconds, count]);
+
   return {
     typeState,
     totalTime: seconds,
@@ -97,5 +104,7 @@ export const useTyper = ({
     timeLeft,
     totalTyped,
     isFinished,
+    isEnabled,
+    setIsEnabled,
   };
 };
