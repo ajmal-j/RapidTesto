@@ -8,14 +8,12 @@ import Results from "@/components/layout/Results";
 import Typings from "@/components/layout/Typings";
 import WordContainer from "@/components/layout/WordContainer";
 import Wrapper from "@/components/layout/Wrapper";
+import useSettings from "@/hooks/useSettings";
 import { useTyper } from "@/hooks/useTyper";
 import { calculateAccuracyPercentage } from "@/utils";
-import { useState } from "react";
 
 export default function Home() {
-  const [seconds, setSeconds] = useState(6);
-  const [count, setCount] = useState(20);
-
+  const { count, seconds } = useSettings();
   const {
     timeLeft,
     typeState,
