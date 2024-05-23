@@ -1,5 +1,6 @@
 "use client";
 
+import KeyboardToggle from "@/components/buttons/Keyboard-toggle";
 import RestartButton from "@/components/buttons/Restart";
 import SettingsDropdown from "@/components/buttons/Settings";
 import StartButton from "@/components/buttons/Start";
@@ -48,6 +49,7 @@ export default function Home() {
         <div className='flex gap-2 justify-between items-center'>
           <CountdownTimer timeLeft={timeLeft} isFinished={isFinished} />
           <div className='flex gap-2 items-center'>
+            <KeyboardToggle />
             <StartButton {...{ isEnabled, setIsEnabled }} />
             <SettingsDropdown
               {...{
