@@ -13,6 +13,7 @@ import { Switch } from "@/components/ui/switch";
 import { Settings } from "lucide-react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
 
 interface SettingsDropdownProps {
   count: number;
@@ -45,12 +46,20 @@ export default function SettingsDropdown({
   const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const number = Number(e.target.value);
     if (isNaN(number)) return;
+    if (number >= 201) {
+      toast.error("Maximum 200 words.");
+      return;
+    }
     setInput((prev) => ({ ...prev, count: number || "" }));
   };
 
   const handleSecondsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const number = Number(e.target.value);
     if (isNaN(number)) return;
+    if (number >= 601) {
+      toast.error("Maximum time is 10 minutes.");
+      return;
+    }
     setInput((prev) => ({ ...prev, seconds: number || "" }));
   };
 
