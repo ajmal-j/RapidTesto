@@ -1,11 +1,21 @@
-import { error } from "console";
-
 export const isKeyboardCodeAllowed = ({ code }: { code: string }) => {
   return (
     code.startsWith("Key") ||
     code.startsWith("Digit") ||
     code === "Backspace" ||
-    code === "Space"
+    code === "Space" ||
+    code === "Period" ||
+    code === "Comma" ||
+    code === "Slash" ||
+    code === "Backslash" ||
+    code === "Quote" ||
+    code === "BracketLeft" ||
+    code === "BracketRight" ||
+    code === "Minus" ||
+    code === "Equal" ||
+    code === "Semicolon" ||
+    code === "Backquote" ||
+    code === "IntlBackslash"
   );
 };
 

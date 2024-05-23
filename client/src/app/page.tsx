@@ -1,5 +1,6 @@
 "use client";
 
+import GeneratePrompt from "@/components/buttons/GeneratePrompt";
 import KeyboardToggle from "@/components/buttons/Keyboard-toggle";
 import RestartButton from "@/components/buttons/Restart";
 import SettingsDropdown from "@/components/buttons/Settings";
@@ -31,6 +32,7 @@ export default function Home() {
     isEnabled,
     setIsEnabled,
     handleKeydown,
+    setCustomWords,
   } = useTyper({
     count,
     seconds,
@@ -52,6 +54,7 @@ export default function Home() {
           <div className='flex gap-2 items-center'>
             <KeyboardToggle {...{ handleKeydown }} />
             <StartButton {...{ isEnabled, setIsEnabled }} />
+            <GeneratePrompt {...{ setIsEnabled, count, setCustomWords }} />
             <SettingsDropdown
               {...{
                 count,

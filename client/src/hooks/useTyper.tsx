@@ -26,7 +26,7 @@ export const useTyper = ({
       seconds,
     });
 
-  const { words, updateWords } = useWords({
+  const { words, updateWords, setCustomWords } = useWords({
     count,
   });
 
@@ -116,5 +116,6 @@ export const useTyper = ({
     isEnabled,
     setIsEnabled,
     handleKeydown,
+    setCustomWords,
   };
 };
