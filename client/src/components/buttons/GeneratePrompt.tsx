@@ -55,7 +55,6 @@ export default function GeneratePrompt({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
-      if (values.prompt === previousPrompt) return;
       const response = await axios.post("/api/generate", {
         ...values,
         words: count,
@@ -63,7 +62,7 @@ export default function GeneratePrompt({
       const data = response.data;
       if (!data) throw new Error("Unable to generate words, please try again.");
       setCustomWords({ words: data });
-      setPreviousPrompt(values.prompt);
+      setPreviousPrompt(values.prompt.trim());
       setOpen(false);
       toast.success("Generated successfully.");
     } catch (error) {
@@ -115,7 +114,11 @@ export default function GeneratePrompt({
                 />
                 <div className='flex justify-end'>
                   <Button
-                    disabled={loading}
+                    disabled={
+                      loading ||
+                      !form.formState.isDirty ||
+                      previousPrompt === form.getValues("prompt").trim()
+                    }
                     type='submit'
                     variant='outline'
                     size='sm'
