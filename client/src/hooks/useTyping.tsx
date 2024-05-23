@@ -2,6 +2,7 @@
 
 import { isKeyboardCodeAllowed } from "@/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { isMobile, isTablet } from "react-device-detect";
 
 export const useTyping = ({
   enabled,
@@ -46,9 +47,13 @@ export const useTyping = ({
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeydown);
+    if (!isMobile && !isTablet) {
+      window.addEventListener("keydown", handleKeydown);
+    }
 
-    return () => window.removeEventListener("keydown", handleKeydown);
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+    };
   }, [handleKeydown]);
 
   return {
@@ -57,5 +62,6 @@ export const useTyping = ({
     clearTyped,
     resetTotalTyped,
     totalTyped: totalTypedRef.current,
+    handleKeydown,
   };
 };

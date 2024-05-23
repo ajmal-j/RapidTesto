@@ -30,6 +30,7 @@ export default function Home() {
     isFinished,
     isEnabled,
     setIsEnabled,
+    handleKeydown,
   } = useTyper({
     count,
     seconds,
@@ -49,7 +50,7 @@ export default function Home() {
         <div className='flex gap-2 justify-between items-center'>
           <CountdownTimer timeLeft={timeLeft} isFinished={isFinished} />
           <div className='flex gap-2 items-center'>
-            <KeyboardToggle />
+            <KeyboardToggle {...{ handleKeydown }} />
             <StartButton {...{ isEnabled, setIsEnabled }} />
             <SettingsDropdown
               {...{

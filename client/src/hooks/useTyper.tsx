@@ -30,12 +30,18 @@ export const useTyper = ({
     count,
   });
 
-  const { cursorPosition, typed, clearTyped, totalTyped, resetTotalTyped } =
-    useTyping({
-      enabled: isEnabled,
-      isFinished,
-      backspace,
-    });
+  const {
+    cursorPosition,
+    typed,
+    clearTyped,
+    totalTyped,
+    resetTotalTyped,
+    handleKeydown,
+  } = useTyping({
+    enabled: isEnabled,
+    isFinished,
+    backspace,
+  });
 
   const isStarting = typeState === "start" && cursorPosition > 0;
 
@@ -109,5 +115,6 @@ export const useTyper = ({
     isFinished,
     isEnabled,
     setIsEnabled,
+    handleKeydown,
   };
 };
