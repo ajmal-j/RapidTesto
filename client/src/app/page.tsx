@@ -6,6 +6,7 @@ import RestartButton from "@/components/buttons/Restart";
 import SettingsDropdown from "@/components/buttons/Settings";
 import StartButton from "@/components/buttons/Start";
 import CountdownTimer from "@/components/layout/CountdownTimer";
+import Footer from "@/components/layout/Footer";
 import GenerateWords from "@/components/layout/GenerateWords";
 import Header from "@/components/layout/Header";
 import Results from "@/components/layout/Results";
@@ -91,6 +92,7 @@ export default function Home() {
           }}
         />
       </Wrapper>
+      <Footer />
     </div>
   );
 }
