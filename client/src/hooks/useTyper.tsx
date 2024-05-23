@@ -55,6 +55,19 @@ export const useTyper = ({
     setIsFinished(false);
   }, [resetCountdown, resetTotalTyped, updateWords, clearTyped]);
 
+  const restartTypingWithCustomWords = useCallback(
+    ({ words }: { words: string }) => {
+      resetCountdown();
+      resetTotalTyped();
+      setErrors(0);
+      setCustomWords({ words });
+      clearTyped();
+      setTypeState("start");
+      setIsFinished(false);
+    },
+    [resetCountdown, resetTotalTyped, setCustomWords, clearTyped]
+  );
+
   const calculateErrors = useCallback(() => {
     const wordsReached = words.substring(
       0,
@@ -116,6 +129,6 @@ export const useTyper = ({
     isEnabled,
     setIsEnabled,
     handleKeydown,
-    setCustomWords,
+    setCustomWords: restartTypingWithCustomWords,
   };
 };
