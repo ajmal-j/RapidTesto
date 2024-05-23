@@ -14,7 +14,7 @@ export default function RestartButton({
     if (buttonRef.current) {
       buttonRef.current?.blur();
     }
-    toast.success("Restarted typing.");
+    toast.success("Restarted.");
     restartTyping();
   };
 
