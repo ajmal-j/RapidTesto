@@ -5,7 +5,7 @@ export const GenerateWordsPrompt = ({
   prompt: string;
   words: number;
 }) => {
-  return `Generate ${words} words with the following prompt: "${prompt}", its for testing the typing speed and accuracy. It must be in ${words} words. It can be random and it must include ${prompt} contents and it the characters must can be type with keyboard. Also you can add spaces.`;
+  return `Generate a ${words}-word paragraph using the prompt: "${prompt}". The paragraph is for testing typing speed and accuracy, so it must be exactly ${words} words. Ensure it includes the contents of the prompt and is composed of characters that can be typed on a keyboard. You may include spaces.`;
 };
 
 export type PromptUtils = {
