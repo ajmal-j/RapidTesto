@@ -1,3 +1,5 @@
+"use client";
+
 import { Keyboard } from "lucide-react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { isMobile, isTablet } from "react-device-detect";

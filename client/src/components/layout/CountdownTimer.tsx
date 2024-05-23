@@ -1,3 +1,5 @@
+"use client";
+
 import { formatTime } from "@/utils";
 
 export default function CountdownTimer({

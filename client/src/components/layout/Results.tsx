@@ -1,3 +1,5 @@
+"use client";
+
 import { TypeState } from "@/hooks/useTyper";
 import { calculateWPM, formatPercentage } from "@/utils";
 import { motion } from "framer-motion";
