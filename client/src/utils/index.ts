@@ -63,18 +63,17 @@ export const formatPercentage = (percentage: number) => {
 
 export function calculateWPM({
   correctLetters,
-  wrongLetters,
   timeTaken,
 }: {
   correctLetters: number;
   wrongLetters: number;
+  totalLetters: number;
   timeTaken: number;
 }) {
-  const totalLetters = correctLetters + wrongLetters;
-  const totalWords = totalLetters / 5;
+  const totalWords = correctLetters / 4;
   const timeInMinutes = timeTaken / 60;
   const wpm = totalWords / timeInMinutes;
-  return wpm.toFixed(2);
+  return Math.ceil(wpm).toString();
 }
 
 export function formatTime(seconds: number) {
