@@ -1,6 +1,6 @@
 "use client";
 
-import GeneratePrompt from "@/components/buttons/GeneratePrompt";
+import GeneratePrompt from "@/components/layout/GeneratePrompt";
 import KeyboardToggle from "@/components/buttons/Keyboard-toggle";
 import RestartButton from "@/components/buttons/Restart";
 import SettingsDropdown from "@/components/buttons/Settings";
