@@ -35,7 +35,7 @@ export default function Results({
         {...{ initial, animate, transition: { duration: 0.3 } }}
         className='text-3xl font-semibold'
       >
-        Result
+        Result&apos;s
       </motion.span>
 
       <div className='ps-3 sm:ps-0'>
@@ -57,6 +57,7 @@ export default function Results({
               correctLetters: totalTyped,
               timeTaken: totalTime - timeLeft,
               wrongLetters: errors,
+              totalLetters: words.length,
             }).concat(" WPM") as string
           }
         </motion.li>
@@ -72,7 +73,7 @@ export default function Results({
           {...{ initial, animate, transition: { duration: 1.2 } }}
           className='text-xl  text-primary/80'
         >
-          <span className='pe-2'>Missed : </span> {errors} / {totalTyped}
+          <span className='pe-2'>Missed : </span> {errors} / {words.length}
         </motion.li>
       </div>
     </motion.div>
