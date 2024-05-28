@@ -73,13 +73,11 @@ export const useTyper = ({
       0,
       Math.min(cursorPosition, words.length)
     );
-    setErrors(
-      (prev) =>
-        prev +
-        countErrors({
-          typed,
-          wordsReached,
-        })
+    setErrors(() =>
+      countErrors({
+        typed,
+        wordsReached,
+      })
     );
   }, [words, cursorPosition, typed]);
 
