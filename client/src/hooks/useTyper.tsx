@@ -45,15 +45,20 @@ export const useTyper = ({
 
   const isStarting = typeState === "start" && cursorPosition > 0;
 
-  const restartTyping = useCallback(() => {
-    resetCountdown();
-    resetTotalTyped();
-    setErrors(0);
-    updateWords();
-    clearTyped();
-    setTypeState("start");
-    setIsFinished(false);
-  }, [resetCountdown, resetTotalTyped, updateWords, clearTyped]);
+  const restartTyping = useCallback(
+    (newWords?: boolean) => {
+      if (newWords) {
+        updateWords();
+      }
+      resetCountdown();
+      resetTotalTyped();
+      setErrors(0);
+      clearTyped();
+      setTypeState("start");
+      setIsFinished(false);
+    },
+    [resetCountdown, resetTotalTyped, updateWords, clearTyped]
+  );
 
   const restartTypingWithCustomWords = useCallback(
     ({ words }: { words: string }) => {
