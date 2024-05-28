@@ -3,7 +3,7 @@ import { ThemeToggle } from "../buttons/theme-toggle";
 
 export default function Header() {
   return (
-    <div className='flex md:px-3 px-1 py-4 items-center justify-between border-b mb-10'>
+    <div className='flex md:px-3 px-1 py-6 items-center justify-between bg-gradient-to-b from-background to-transparent'>
       <Image
         src='/title.svg'
         className='dark:invert'

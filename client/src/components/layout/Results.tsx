@@ -66,7 +66,7 @@ export default function Results({
           {...{ initial, animate, transition: { duration: 1 } }}
           className='text-xl  text-primary/80'
         >
-          <span className='pe-2'>Typed :</span> {totalTyped} / {words.length}
+          <span className='pe-2'>Typed :</span> {totalTyped}
         </motion.li>
 
         <motion.li
