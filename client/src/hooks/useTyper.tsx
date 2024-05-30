@@ -118,6 +118,7 @@ export const useTyper = ({
     if (seconds && count) {
       restartTyping();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds, count]);
 
   return {

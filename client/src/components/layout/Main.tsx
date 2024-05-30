@@ -66,7 +66,7 @@ export default function Main() {
         </div>
       </div>
       <WordContainer>
-        <GenerateWords words={words} />
+        <GenerateWords setIsEnabled={setIsEnabled} words={words} />
         <Typings
           words={words}
           typed={typed}
