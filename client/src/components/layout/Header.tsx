@@ -32,15 +32,10 @@ export default async function Header() {
 
 function SignInButton() {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signIn();
-      }}
-    >
+    <Link href={"/api/auth/signin"}>
       <Button variant='outline' type='submit'>
         Sign In
       </Button>
-    </form>
+    </Link>
   );
 }
