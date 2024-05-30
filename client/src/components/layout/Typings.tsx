@@ -18,7 +18,10 @@ export default function Typings({
   const typedCharacters = typed.split("");
 
   return (
-    <div className='absolute inset-0' onClick={() => setIsEnabled(true)}>
+    <div
+      className='absolute inset-0 space-x-2 flex flex-wrap gap-y-3  h-min'
+      onClick={() => setIsEnabled(true)}
+    >
       {typedCharacters.map((char, i) => (
         <Character key={i} actual={char} expected={words[i]} />
       ))}
@@ -39,13 +42,16 @@ const Character = ({
 
   return (
     <span
-      className={cn({
-        "text-red-500": !isCorrect && !isSpace,
-        "text-primary": isCorrect && !isSpace,
-        "bg-red-500/50": !isCorrect && isSpace,
-      })}
+      className={cn(
+        {
+          "text-red-500": !isCorrect && !isSpace,
+          "text-primary": isCorrect && !isSpace,
+          "bg-red-500/50": !isCorrect && isSpace,
+        },
+        "border h-min rounded-xl border-transparent px-2"
+      )}
     >
-      {expected}
+      {expected === " " ? "\u00A0" : expected}
     </span>
   );
 };
