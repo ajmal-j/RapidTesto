@@ -1,12 +1,13 @@
+import { signIn } from "@/auth";
+import getSession from "@/lib/getSession";
 import Image from "next/image";
-import { ThemeToggle } from "../buttons/theme-toggle";
-import { auth, signIn } from "@/auth";
-import { Button } from "../ui/button";
-import { AvatarButton } from "../buttons/Avatar";
 import Link from "next/link";
+import { AvatarButton } from "../buttons/Avatar";
+import { ThemeToggle } from "../buttons/theme-toggle";
+import { Button } from "../ui/button";
 
 export default async function Header() {
-  const session = await auth();
+  const session = await getSession();
   const user = session?.user;
 
   return (
