@@ -35,7 +35,7 @@ export function AvatarButton({ user }: AvatarProps) {
       <DropdownMenuContent align='end'>
         <DropdownMenuLabel>{user?.name ?? "User"}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href='/settings'>
             <Button variant='outline' className='flex gap-2'>
               <Settings size={16} />
@@ -43,7 +43,7 @@ export function AvatarButton({ user }: AvatarProps) {
             </Button>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <form
             action={async () => {
               "use server";
