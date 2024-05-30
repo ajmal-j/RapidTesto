@@ -16,6 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { updateProfile } from "./actions";
 
 type Props = {
   user: User;
@@ -29,13 +31,18 @@ const SettingsPage = ({ user }: Props) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof updateProfileSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof updateProfileSchema>) {
+    try {
+      await updateProfile(values);
+      toast.success("Profile updated.");
+    } catch (error) {
+      toast.error("Something went wrong. Please try again later.");
+    }
   }
 
   return (
-    <div>
-      <h1>Settings</h1>
+    <div className='flex flex-col gap-2'>
+      <h1 className='sm:text-4xl text-3xl'>Settings</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <FormField
@@ -45,11 +52,9 @@ const SettingsPage = ({ user }: Props) => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder='shadcn' {...field} />
+                  <Input placeholder='Username' {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
+                <FormDescription>Update your details.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}

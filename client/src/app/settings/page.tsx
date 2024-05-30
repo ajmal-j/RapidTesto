@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import SettingsPage from "./SettingsPage";
+import Wrapper from "@/components/layout/Wrapper";
 
 const Settings = async () => {
   const session = await auth();
@@ -9,7 +10,11 @@ const Settings = async () => {
     redirect("/api/auth/signin");
   }
 
-  return <SettingsPage user={user} />;
+  return (
+    <Wrapper>
+      <SettingsPage user={user} />
+    </Wrapper>
+  );
 };
 
 export default Settings;
