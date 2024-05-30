@@ -13,7 +13,6 @@ import WordContainer from "@/components/layout/WordContainer";
 import Wrapper from "@/components/layout/Wrapper";
 import useSettings from "@/hooks/useSettings";
 import { useTyper } from "@/hooks/useTyper";
-import { calculateAccuracyPercentage } from "@/utils";
 
 export default function Main() {
   const { count, seconds, setCount, setSeconds, backspace, setBackspace } =
@@ -21,12 +20,10 @@ export default function Main() {
   const {
     timeLeft,
     typeState,
-    errors,
+    result,
     restartTyping,
-    totalTyped,
     typed,
     words,
-    totalTime,
     isFinished,
     isEnabled,
     setIsEnabled,
@@ -38,11 +35,6 @@ export default function Main() {
     backspace,
   });
 
-  const accuracyPercentage = calculateAccuracyPercentage({
-    totalTyped,
-    totalWords: words.length,
-    errors,
-  });
   return (
     <Wrapper>
       <div className='flex gap-2 justify-between items-center'>
@@ -77,13 +69,8 @@ export default function Main() {
       <RestartButton restartTyping={restartTyping} />
       <Results
         {...{
-          accuracyPercentage,
-          errors,
-          totalTyped,
+          result,
           typeState,
-          totalTime,
-          words,
-          timeLeft,
         }}
       />
     </Wrapper>

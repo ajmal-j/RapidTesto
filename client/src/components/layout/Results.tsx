@@ -1,25 +1,20 @@
 "use client";
 
 import { TypeState } from "@/hooks/useTyper";
-import { calculateWPM, formatPercentage } from "@/utils";
+import { formatPercentage } from "@/utils";
 import { motion } from "framer-motion";
 
 export default function Results({
-  accuracyPercentage,
-  errors,
-  totalTyped,
   typeState,
-  totalTime,
-  timeLeft,
-  words,
+  result,
 }: {
   typeState: TypeState;
-  errors: number;
-  accuracyPercentage: number;
-  totalTyped: number;
-  totalTime: number;
-  timeLeft: number;
-  words: string;
+  result: {
+    accuracy: number;
+    speed: string;
+    missed: number;
+    typed: number;
+  };
 }) {
   if (typeState !== "finished") return null;
 
@@ -44,7 +39,7 @@ export default function Results({
           className='text-xl  text-primary/80'
         >
           <span className='pe-2'>Accuracy :</span>
-          {formatPercentage(accuracyPercentage)}
+          {formatPercentage(result.accuracy)}
         </motion.li>
 
         <motion.li
@@ -52,28 +47,21 @@ export default function Results({
           className='text-xl  text-primary/80'
         >
           <span className='pe-2'>Speed :</span>
-          {
-            calculateWPM({
-              correctLetters: totalTyped,
-              timeTaken: totalTime - timeLeft,
-              wrongLetters: errors,
-              totalLetters: words.length,
-            }).concat(" WPM") as string
-          }
+          {result.speed}
         </motion.li>
 
         <motion.li
           {...{ initial, animate, transition: { duration: 1 } }}
           className='text-xl  text-primary/80'
         >
-          <span className='pe-2'>Typed :</span> {totalTyped}
+          <span className='pe-2'>Typed :</span> {result.typed}
         </motion.li>
 
         <motion.li
           {...{ initial, animate, transition: { duration: 1.2 } }}
           className='text-xl  text-primary/80'
         >
-          <span className='pe-2'>Missed : </span> {errors}
+          <span className='pe-2'>Missed : </span> {result.missed}
         </motion.li>
       </div>
     </motion.div>

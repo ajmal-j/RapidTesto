@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { updateProfile } from "./actions";
+import { updateProfile } from "../../actions/settings";
 
 type Props = {
   user: User;

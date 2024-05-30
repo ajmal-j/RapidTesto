@@ -28,13 +28,20 @@ export const countErrors = ({
 }) => {
   const expectedCharacters = wordsReached.split("");
 
-  return expectedCharacters.reduce((errors, expectedChar, i) => {
-    const actualChar = typed[i];
-    if (actualChar !== expectedChar) {
-      errors++;
+  return expectedCharacters.reduce(
+    (result, expectedChar, i) => {
+      const actualChar = typed[i];
+      if (actualChar !== expectedChar) {
+        if (expectedChar !== " ") result.missedLetters.push(expectedChar);
+        result.missed++;
+      }
+      return result;
+    },
+    {
+      missed: 0,
+      missedLetters: [] as string[],
     }
-    return errors;
-  }, 0);
+  );
 };
 
 export const calculateAccuracyPercentage = ({

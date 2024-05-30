@@ -4,7 +4,13 @@ import { useCallback, useEffect, useState } from "react";
 import { useCountdown } from "./useCountdown";
 import { useWords } from "./useWords";
 import { useTyping } from "./useTyping";
-import { countErrors } from "@/utils";
+import { v4 as uuid } from "uuid";
+import {
+  calculateAccuracyPercentage,
+  calculateWPM,
+  countErrors,
+} from "@/utils";
+import { updateChapter } from "@/actions/updateTyping";
 
 export type TypeState = "start" | "run" | "finished";
 
@@ -18,9 +24,20 @@ export const useTyper = ({
   backspace: boolean;
 }) => {
   const [typeState, setTypeState] = useState<TypeState>("start");
-  const [errors, setErrors] = useState<number>(0);
+  const [result, setResult] = useState<{
+    accuracy: number;
+    speed: string;
+    missed: number;
+    typed: number;
+  }>({
+    accuracy: 0,
+    speed: "",
+    missed: 0,
+    typed: 0,
+  });
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [isEnabled, setIsEnabled] = useState<boolean>(typeState !== "finished");
+  const [wordId, setWordId] = useState<string>("");
   const { resetCountdown, startCountdown, timeLeft, stopCountdown } =
     useCountdown({
       seconds,
@@ -52,10 +69,16 @@ export const useTyper = ({
       }
       resetCountdown();
       resetTotalTyped();
-      setErrors(0);
+      setResult({
+        accuracy: 0,
+        speed: "",
+        missed: 0,
+        typed: 0,
+      });
       clearTyped();
       setTypeState("start");
       setIsFinished(false);
+      setWordId(uuid());
     },
     [resetCountdown, resetTotalTyped, updateWords, clearTyped]
   );
@@ -64,28 +87,67 @@ export const useTyper = ({
     ({ words }: { words: string }) => {
       resetCountdown();
       resetTotalTyped();
-      setErrors(0);
+      setResult({
+        accuracy: 0,
+        speed: "",
+        missed: 0,
+        typed: 0,
+      });
       setCustomWords({ words });
       clearTyped();
       setTypeState("start");
       setIsFinished(false);
+      setWordId(uuid());
     },
     [resetCountdown, resetTotalTyped, setCustomWords, clearTyped]
   );
 
-  const calculateErrors = useCallback(() => {
+  const calculateErrors = useCallback(async () => {
     const wordsReached = words.substring(
       0,
       Math.min(cursorPosition, words.length)
     );
+    const { missed, missedLetters } = countErrors({
+      typed,
+      wordsReached,
+    });
+
+    const speed = calculateWPM({
+      correctLetters: totalTyped,
+      timeTaken: seconds - timeLeft,
+      wrongLetters: missed,
+      totalLetters: words.length,
+    }).concat(" WPM") as string;
+
+    const accuracy = calculateAccuracyPercentage({
+      errors: missed,
+      totalTyped,
+      totalWords: words.length,
+    });
+
+    setResult(() => ({
+      accuracy,
+      speed,
+      missed,
+      typed: typed.length,
+    }));
+
+    // TODO: update chapter
+    await updateChapter({
+      result: {
+        accuracy: accuracy,
+        missed: missed,
+        speed: speed,
+        typed: typed.length,
+      },
+      missedLetters,
+      wordId,
+      time: Math.min(seconds - timeLeft),
+      typedWords: typed,
+      words,
+    });
     setIsFinished(() => true);
-    setErrors(() =>
-      countErrors({
-        typed,
-        wordsReached,
-      })
-    );
-  }, [words, cursorPosition, typed]);
+  }, [cursorPosition, seconds, timeLeft, totalTyped, typed, words, wordId]);
 
   useEffect(() => {
     if (isStarting) {
@@ -126,7 +188,8 @@ export const useTyper = ({
     totalTime: seconds,
     words,
     typed,
-    errors,
+    result,
+    setWordId,
     restartTyping,
     timeLeft,
     totalTyped,
