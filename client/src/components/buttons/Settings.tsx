@@ -72,6 +72,8 @@ export default function SettingsDropdown({
   useEffect(() => {
     if (open) {
       setIsEnabled(() => false);
+    } else {
+      setIsEnabled(() => true);
     }
   }, [open, setIsEnabled]);
 

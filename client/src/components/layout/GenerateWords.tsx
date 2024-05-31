@@ -24,7 +24,7 @@ export default function GenerateWords({
           ))}
         </div>
       ) : (
-        <div className='flex flex-col gap-2 my-3'>
+        <div className='flex flex-col gap-2'>
           <Skeleton className='h-12 xl:h-10 rounded-lg' />
           <Skeleton className='h-12 xl:h-10 rounded-lg' />
           <Skeleton className='h-12 xl:h-10 rounded-lg' />

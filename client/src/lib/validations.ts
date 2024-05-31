@@ -5,7 +5,7 @@ export const updateProfileSchema = z.object({
 });
 
 export const updateChapterSchema = z.object({
-  missedLetters: z.array(z.string()),
+  missedLetters: z.map(z.string(), z.number()),
   words: z.string(),
   typedWords: z.string(),
   wordId: z.string(),

@@ -39,12 +39,22 @@ const updateChapter = async (values: IUpdateChapter) => {
       words,
       time,
       wordId,
+      missedLetters,
     } = updateChapterSchema.parse(values);
+
+    const missedLettersArray = [];
+
+    for (const [k, v] of missedLetters.entries()) {
+      missedLettersArray.push({ letter: k, count: v });
+    }
 
     await prisma?.completed.create({
       data: {
         userId,
         typedWords,
+        missedLetters: {
+          create: missedLettersArray,
+        },
         words,
         wordId,
         time,

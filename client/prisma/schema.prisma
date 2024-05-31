@@ -15,7 +15,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  missedLetters MissedLetters[]
+  missedLetters MostMissedLetters[]
   completed Completed[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -69,7 +69,7 @@ model VerificationToken {
 }
  
 
-model MissedLetters {
+model MostMissedLetters {
   id        String   @id @default(cuid())
   letters   String[] @default([])
 
@@ -79,7 +79,7 @@ model MissedLetters {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("missed_letters")
+  @@map("most_missed_letters")
 }
 
 
@@ -90,6 +90,7 @@ model Completed {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   words String
   typedWords String
+  missedLetters MissedLetters[]
   result Results[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -108,4 +109,14 @@ model Results {
   missed Int
 
   @@map("results")
+}
+
+model MissedLetters {
+  id          String     @id @default(cuid())
+  letter      String
+  count       Int
+  completedId String
+  completed   Completed  @relation(fields: [completedId], references: [id], onDelete: Cascade)
+
+  @@map("missed_letters")
 }
