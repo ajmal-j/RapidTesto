@@ -32,14 +32,19 @@ export const countErrors = ({
     (result, expectedChar, i) => {
       const actualChar = typed[i];
       if (actualChar !== expectedChar) {
-        if (expectedChar !== " ") result.missedLetters.push(expectedChar);
+        if (expectedChar !== " ") {
+          result.missedLetters.set(
+            expectedChar,
+            (result.missedLetters.get(expectedChar) || 0) + 1
+          );
+        }
         result.missed++;
       }
       return result;
     },
     {
       missed: 0,
-      missedLetters: [] as string[],
+      missedLetters: new Map() as Map<string, number>,
     }
   );
 };
@@ -73,11 +78,12 @@ export function calculateWPM({
   timeTaken,
 }: {
   correctLetters: number;
-  wrongLetters: number;
-  totalLetters: number;
   timeTaken: number;
 }) {
-  const totalWords = correctLetters / 4;
+  if (timeTaken === 0) {
+    return "0";
+  }
+  const totalWords = correctLetters / 5;
   const timeInMinutes = timeTaken / 60;
   const wpm = totalWords / timeInMinutes;
   return Math.ceil(wpm).toString();

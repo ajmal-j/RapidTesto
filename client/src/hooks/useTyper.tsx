@@ -29,11 +29,13 @@ export const useTyper = ({
     speed: string;
     missed: number;
     typed: number;
+    missedLetters: Map<string, number>;
   }>({
     accuracy: 0,
     speed: "",
     missed: 0,
     typed: 0,
+    missedLetters: new Map(),
   });
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [isEnabled, setIsEnabled] = useState<boolean>(typeState !== "finished");
@@ -74,6 +76,7 @@ export const useTyper = ({
         speed: "",
         missed: 0,
         typed: 0,
+        missedLetters: new Map(),
       });
       clearTyped();
       setTypeState("start");
@@ -92,6 +95,7 @@ export const useTyper = ({
         speed: "",
         missed: 0,
         typed: 0,
+        missedLetters: new Map(),
       });
       setCustomWords({ words });
       clearTyped();
@@ -113,10 +117,8 @@ export const useTyper = ({
     });
 
     const speed = calculateWPM({
-      correctLetters: totalTyped,
+      correctLetters: totalTyped - missed,
       timeTaken: seconds - timeLeft,
-      wrongLetters: missed,
-      totalLetters: words.length,
     }).concat(" WPM") as string;
 
     const accuracy = calculateAccuracyPercentage({
@@ -130,6 +132,7 @@ export const useTyper = ({
       speed,
       missed,
       typed: typed.length,
+      missedLetters,
     }));
 
     // TODO: update chapter

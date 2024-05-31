@@ -4,7 +4,7 @@ import getSession from "@/lib/getSession";
 import { updateChapterSchema } from "@/lib/validations";
 
 interface IUpdateChapter {
-  missedLetters: string[];
+  missedLetters: Map<string, number>;
   words: string;
   typedWords: string;
   time: number;
