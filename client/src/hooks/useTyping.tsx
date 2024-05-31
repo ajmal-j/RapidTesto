@@ -18,17 +18,19 @@ export const useTyping = ({
   const totalTypedRef = useRef<number>(0);
 
   const handleKeydown = useCallback(
-    ({ key, code }: KeyboardEvent) => {
-      if (!enabled || !isKeyboardCodeAllowed({ code })) return;
+    (e: KeyboardEvent) => {
+      if (!enabled || !isKeyboardCodeAllowed({ code: e.code })) return;
       if (isFinished) return;
 
-      if (key === "Backspace") {
+      if (e.code === "Space") e.preventDefault();
+
+      if (e.key === "Backspace") {
         if (!backspace) return;
         setTyped((prev) => prev.slice(0, -1));
         setCursorPosition((prev) => prev - 1);
         totalTypedRef.current -= 1;
       } else {
-        setTyped((prev) => prev + key);
+        setTyped((prev) => prev + e.key);
         setCursorPosition((prev) => prev + 1);
         totalTypedRef.current += 1;
       }
@@ -55,6 +57,15 @@ export const useTyping = ({
       window.removeEventListener("keydown", handleKeydown);
     };
   }, [handleKeydown]);
+
+  useEffect(() => {
+    const targetSpan = document.getElementById(
+      (cursorPosition + typed.length - 1).toString()
+    );
+    if (targetSpan) {
+      targetSpan.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [cursorPosition, typed]);
 
   return {
     typed,

@@ -29,6 +29,7 @@ export default function Main() {
     setIsEnabled,
     handleKeydown,
     setCustomWords,
+    cursorPosition,
   } = useTyper({
     count,
     seconds,
@@ -57,11 +58,12 @@ export default function Main() {
           />
         </div>
       </div>
-      <WordContainer>
+      <WordContainer typeState={typeState}>
         <GenerateWords setIsEnabled={setIsEnabled} words={words} />
         <Typings
           words={words}
           typed={typed}
+          cursorPosition={cursorPosition}
           setIsEnabled={setIsEnabled}
           isFinished={isFinished || !isEnabled}
         />

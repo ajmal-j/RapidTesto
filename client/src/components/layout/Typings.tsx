@@ -9,11 +9,13 @@ export default function Typings({
   typed,
   isFinished,
   setIsEnabled,
+  cursorPosition,
 }: {
   words: string;
   typed: string;
   isFinished: boolean;
   setIsEnabled: Dispatch<SetStateAction<boolean>>;
+  cursorPosition: number;
 }) {
   const typedCharacters = typed.split("");
 
@@ -23,7 +25,12 @@ export default function Typings({
       onClick={() => setIsEnabled(true)}
     >
       {typedCharacters.map((char, i) => (
-        <Character key={i} actual={char} expected={words[i]} />
+        <Character
+          key={i}
+          id={(cursorPosition + i).toString()}
+          actual={char}
+          expected={words[i]}
+        />
       ))}
       <Caret isFinished={isFinished} />
     </div>
@@ -33,8 +40,10 @@ export default function Typings({
 const Character = ({
   actual,
   expected,
+  id,
 }: {
   actual: string;
+  id: string;
   expected: string;
 }) => {
   const isCorrect = actual === expected;
@@ -42,6 +51,7 @@ const Character = ({
 
   return (
     <span
+      id={id}
       className={cn(
         {
           "text-red-500": !isCorrect && !isSpace,

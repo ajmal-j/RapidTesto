@@ -26,13 +26,13 @@ export default function Results({
   return (
     <motion.div
       {...{ initial, animate }}
-      className='flex items-start justify-between gap-5 mt-10 flex-col bg-foreground/5 p-3 rounded-xl'
+      className='flex items-start justify-between gap-5 my-10 flex-col bg-foreground/5 p-3 rounded-xl'
     >
       <motion.span
         {...{ initial, animate, transition: { duration: 0.3 } }}
-        className='text-3xl font-semibold'
+        className='text-3xl font-thin tracking-wide'
       >
-        Result.
+        Result
       </motion.span>
 
       <div className='flex flex-wrap flex-1 w-full gap-3 items-start justify-stretch'>

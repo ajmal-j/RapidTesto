@@ -200,6 +200,7 @@ export const useTyper = ({
     isEnabled,
     setIsEnabled,
     handleKeydown,
+    cursorPosition,
     setCustomWords: restartTypingWithCustomWords,
   };
 };
