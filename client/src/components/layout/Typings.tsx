@@ -37,13 +37,31 @@ export default function Typings({
   );
 }
 
+export function TypingsDemo({
+  words,
+  typed,
+}: {
+  words: string;
+  typed: string;
+}) {
+  const typedCharacters = typed.split("");
+
+  return (
+    <div className='absolute inset-0 space-x-2 flex flex-wrap gap-y-3  h-min'>
+      {typedCharacters.map((char, i) => (
+        <Character key={i} actual={char} expected={words[i]} />
+      ))}
+    </div>
+  );
+}
+
 const Character = ({
   actual,
   expected,
   id,
 }: {
   actual: string;
-  id: string;
+  id?: string;
   expected: string;
 }) => {
   const isCorrect = actual === expected;

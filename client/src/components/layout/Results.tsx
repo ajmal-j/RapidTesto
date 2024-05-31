@@ -10,29 +10,57 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
+
+const normalizeMissedLetters = (
+  missedLetters:
+    | Map<string, number>
+    | {
+        letter: string;
+        count: number;
+      }[]
+) => {
+  if (missedLetters instanceof Map) {
+    return [...missedLetters.entries()].map(([letter, count]) => ({
+      letter,
+      count,
+    }));
+  }
+  return missedLetters.map(({ letter, count }) => ({ letter, count }));
+};
 
 export default function Results({
   typeState,
   result,
+  className,
 }: {
   typeState: TypeState;
+  className?: string;
   result: {
     accuracy: number;
     speed: string;
     missed: number;
     typed: number;
-    missedLetters: Map<string, number>;
+    missedLetters:
+      | Map<string, number>
+      | {
+          letter: string;
+          count: number;
+        }[];
   };
 }) {
   if (typeState !== "finished") return null;
 
   const initial = { opacity: 0, y: 30 };
   const animate = { opacity: 1, y: 0 };
-
+  const normalizedMissedLetters = normalizeMissedLetters(result.missedLetters);
   return (
     <motion.div
       {...{ initial, animate }}
-      className='flex items-start justify-between gap-5 my-10 flex-col bg-foreground/5 p-3 rounded-xl'
+      className={cn(
+        "flex items-start justify-between gap-5 flex-col bg-foreground/5 p-3 rounded-xl",
+        className
+      )}
     >
       <motion.span
         {...{ initial, animate, transition: { duration: 0.3 } }}
@@ -85,22 +113,20 @@ export default function Results({
           </AccordionTrigger>
           <AccordionContent>
             <div className='flex flex-wrap flex-1 w-full gap-3 items-start justify-stretch'>
-              {result.missedLetters.size > 0
-                ? [...result.missedLetters.entries()].map(
-                    ([missedLetter, missedCount]) => (
-                      <motion.div
-                        key={missedLetter}
-                        {...{ initial, animate, transition: { duration: 0.5 } }}
-                        className='text-xl px-6 py-4 border rounded-xl text-nowrap flex items-center gap-2 flex-1 justify-between min-w-[150px]'
-                      >
-                        <span className='font-semibold'>{missedLetter}</span>
-                        <span className='flex gap-1 text-foreground/70'>
-                          <Asterisk size={17} className='pt-1' />
-                          {missedCount}
-                        </span>
-                      </motion.div>
-                    )
-                  )
+              {!!normalizedMissedLetters.length
+                ? normalizedMissedLetters.map(({ letter, count }) => (
+                    <motion.div
+                      key={letter}
+                      {...{ initial, animate, transition: { duration: 0.5 } }}
+                      className='text-xl px-6 py-4 border rounded-xl text-nowrap flex items-center gap-2 flex-1 justify-between min-w-[150px]'
+                    >
+                      <span className='font-semibold'>{letter}</span>
+                      <span className='flex gap-1 text-foreground/70'>
+                        <Asterisk size={17} className='pt-1' />
+                        {count}
+                      </span>
+                    </motion.div>
+                  ))
                 : null}
             </div>
           </AccordionContent>

@@ -8,14 +8,14 @@ export default function GenerateWords({
   setIsEnabled,
 }: {
   words: string;
-  setIsEnabled: Dispatch<SetStateAction<boolean>>;
+  setIsEnabled?: Dispatch<SetStateAction<boolean>>;
 }) {
   return (
     <>
       {words ? (
         <div
           className='text-slate-500 space-x-2 flex flex-grow flex-wrap gap-y-3'
-          onClick={() => setIsEnabled(true)}
+          onClick={() => setIsEnabled && setIsEnabled(true)}
         >
           {words.split("").map((c, i) => (
             <span key={i} className='border rounded-xl px-2'>

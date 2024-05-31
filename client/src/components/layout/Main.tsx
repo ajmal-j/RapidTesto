@@ -13,8 +13,11 @@ import WordContainer from "@/components/layout/WordContainer";
 import Wrapper from "@/components/layout/Wrapper";
 import useSettings from "@/hooks/useSettings";
 import { useTyper } from "@/hooks/useTyper";
+import { useCallback, useEffect, useTransition } from "react";
+import { GetCompleted } from "@/actions/completed";
 
-export default function Main() {
+export default function Main({ completed }: { completed?: string }) {
+  const [isPending, startTransition] = useTransition();
   const { count, seconds, setCount, setSeconds, backspace, setBackspace } =
     useSettings();
   const {
@@ -35,6 +38,25 @@ export default function Main() {
     seconds,
     backspace,
   });
+
+  const fetchCompleted = useCallback(async () => {
+    if (!completed) return;
+    const data = await GetCompleted({
+      id: completed,
+    });
+    return data;
+  }, [completed]);
+
+  useEffect(() => {
+    fetchCompleted().then((data) => {
+      if (!data) return;
+      setCustomWords({ words: data?.words });
+      startTransition(() => {
+        setSeconds(data?.time || seconds);
+      });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchCompleted]);
 
   return (
     <Wrapper>
@@ -70,6 +92,7 @@ export default function Main() {
       </WordContainer>
       <RestartButton restartTyping={restartTyping} />
       <Results
+        className='my-10'
         {...{
           result,
           typeState,

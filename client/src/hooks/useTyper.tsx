@@ -145,7 +145,7 @@ export const useTyper = ({
       },
       missedLetters,
       wordId,
-      time: Math.min(seconds - timeLeft),
+      time: seconds,
       typedWords: typed,
       words,
     });
