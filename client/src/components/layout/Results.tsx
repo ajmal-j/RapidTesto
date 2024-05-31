@@ -4,6 +4,12 @@ import { TypeState } from "@/hooks/useTyper";
 import { formatPercentage } from "@/utils";
 import { motion } from "framer-motion";
 import { Asterisk } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function Results({
   typeState,
@@ -66,31 +72,40 @@ export default function Results({
           <span>Missed : </span> {result.missed}
         </motion.div>
       </div>
-      <motion.span
-        {...{ initial, animate, transition: { duration: 0.3 } }}
-        className='text-foreground/80 mt-5'
-      >
-        Missed Letter&apos;s
-      </motion.span>
-      <div className='flex flex-wrap flex-1 w-full gap-3 items-start justify-stretch'>
-        {result.missedLetters.size > 0
-          ? [...result.missedLetters.entries()].map(
-              ([missedLetter, missedCount]) => (
-                <motion.div
-                  key={missedLetter}
-                  {...{ initial, animate, transition: { duration: 1.2 } }}
-                  className='text-xl px-6 py-4 border rounded-xl text-nowrap flex items-center gap-2 flex-1 justify-between min-w-[150px]'
-                >
-                  <span className='font-semibold'>{missedLetter}</span>
-                  <span className='flex gap-1 text-foreground/70'>
-                    <Asterisk size={17} className='pt-1' />
-                    {missedCount}
-                  </span>
-                </motion.div>
-              )
-            )
-          : null}
-      </div>
+
+      <Accordion type='single' collapsible className='flex-1 w-full  mt-5'>
+        <AccordionItem value='item-1'>
+          <AccordionTrigger>
+            <motion.span
+              {...{ initial, animate, transition: { duration: 0.3 } }}
+              className='text-foreground/80'
+            >
+              Missed Letter&apos;s
+            </motion.span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className='flex flex-wrap flex-1 w-full gap-3 items-start justify-stretch'>
+              {result.missedLetters.size > 0
+                ? [...result.missedLetters.entries()].map(
+                    ([missedLetter, missedCount]) => (
+                      <motion.div
+                        key={missedLetter}
+                        {...{ initial, animate, transition: { duration: 0.5 } }}
+                        className='text-xl px-6 py-4 border rounded-xl text-nowrap flex items-center gap-2 flex-1 justify-between min-w-[150px]'
+                      >
+                        <span className='font-semibold'>{missedLetter}</span>
+                        <span className='flex gap-1 text-foreground/70'>
+                          <Asterisk size={17} className='pt-1' />
+                          {missedCount}
+                        </span>
+                      </motion.div>
+                    )
+                  )
+                : null}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </motion.div>
   );
 }
