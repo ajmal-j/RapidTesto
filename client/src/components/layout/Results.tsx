@@ -24,45 +24,45 @@ export default function Results({
   return (
     <motion.div
       {...{ initial, animate }}
-      className='flex items-start justify-between gap-3 mt-10 flex-wrap max-w-[330px]'
+      className='flex items-start justify-between gap-5 mt-10 flex-col'
     >
       <motion.span
         {...{ initial, animate, transition: { duration: 0.3 } }}
         className='text-3xl font-semibold'
       >
-        Result&apos;s
+        Result.
       </motion.span>
 
-      <div className='ps-3 sm:ps-0'>
-        <motion.li
+      <div className='flex flex-wrap flex-1 w-full gap-3 items-start justify-stretch'>
+        <motion.div
           {...{ initial, animate, transition: { duration: 0.5 } }}
-          className='text-xl  text-primary/80'
+          className='text-xl  text-primary/80 px-6 py-4 border rounded-xl text-nowrap flex items-center gap-2 flex-1'
         >
-          <span className='pe-2'>Accuracy :</span>
+          <span>Accuracy :</span>
           {formatPercentage(result.accuracy)}
-        </motion.li>
+        </motion.div>
 
-        <motion.li
+        <motion.div
           {...{ initial, animate, transition: { duration: 0.8 } }}
-          className='text-xl  text-primary/80'
+          className='text-xl  text-primary/80 px-6 py-4 border rounded-xl text-nowrap flex items-center gap-2 flex-1'
         >
-          <span className='pe-2'>Speed :</span>
+          <span>Speed :</span>
           {result.speed}
-        </motion.li>
+        </motion.div>
 
-        <motion.li
+        <motion.div
           {...{ initial, animate, transition: { duration: 1 } }}
-          className='text-xl  text-primary/80'
+          className='text-xl  text-primary/80 px-6 py-4 border rounded-xl text-nowrap flex items-center gap-2 flex-1'
         >
-          <span className='pe-2'>Typed :</span> {result.typed}
-        </motion.li>
+          <span>Typed :</span> {result.typed}
+        </motion.div>
 
-        <motion.li
+        <motion.div
           {...{ initial, animate, transition: { duration: 1.2 } }}
-          className='text-xl  text-primary/80'
+          className='text-xl  text-primary/80 px-6 py-4 border rounded-xl text-nowrap flex items-center gap-2 flex-1'
         >
-          <span className='pe-2'>Missed : </span> {result.missed}
-        </motion.li>
+          <span>Missed : </span> {result.missed}
+        </motion.div>
       </div>
     </motion.div>
   );
