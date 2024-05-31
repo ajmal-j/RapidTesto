@@ -18,12 +18,12 @@ import { toast } from "sonner";
 interface SettingsDropdownProps {
   count: number;
   seconds: number;
-  setCount: Dispatch<SetStateAction<number>>;
-  setSeconds: Dispatch<SetStateAction<number>>;
+  setCount: (count: number) => void;
+  setSeconds: (seconds: number) => void;
   isEnabled: boolean;
   setIsEnabled: Dispatch<SetStateAction<boolean>>;
   backspace: boolean;
-  setBackspace: Dispatch<SetStateAction<boolean>>;
+  setBackspace: (backspace: boolean) => void;
 }
 
 export default function SettingsDropdown({
