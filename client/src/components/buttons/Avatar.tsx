@@ -13,6 +13,11 @@ import { Check, LogOut, Settings, User as UserIcon } from "lucide-react";
 import { User } from "next-auth";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface AvatarProps {
   user: User;
@@ -61,21 +66,41 @@ export function AvatarButton({ user }: AvatarProps) {
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild className='p-0'>
-          <form
-            action={async () => {
-              "use server";
-              await signOut();
-            }}
-          >
-            <Button
-              type='submit'
-              variant='outline'
-              className='flex gap-2 justify-start w-full'
-            >
-              <LogOut size={16} />
-              <span>Sign out</span>
-            </Button>
-          </form>
+          <Popover>
+            <PopoverTrigger className='w-full'>
+              <Button
+                type='submit'
+                variant='destructive'
+                className='flex gap-2 justify-start w-full'
+              >
+                <LogOut size={16} />
+                <span>Sign out</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent align='end' className='rounded-3xl'>
+              <div className='flex flex-col gap-2 text-sm'>
+                <h6 className='text-muted-foreground'>
+                  Are you sure you want to sign out?
+                </h6>
+                <form
+                  action={async () => {
+                    "use server";
+                    await signOut();
+                  }}
+                  className='self-end'
+                >
+                  <Button
+                    type='submit'
+                    variant='destructive'
+                    className='flex gap-2 items-center justify-center rounded-full'
+                    size={"icon"}
+                  >
+                    <LogOut size={13} />
+                  </Button>
+                </form>
+              </div>
+            </PopoverContent>
+          </Popover>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
