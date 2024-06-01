@@ -42,6 +42,18 @@ export function AvatarButton({ user }: AvatarProps) {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild className='p-0'>
+          <Link href='/profile'>
+            <Button
+              variant='outline'
+              className='flex justify-start gap-2 w-full'
+            >
+              <UserIcon size={16} />
+              <span>Profile</span>
+            </Button>
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem asChild className='p-0'>
           <Link href='/completed'>
             <Button
               variant='outline'
@@ -49,18 +61,6 @@ export function AvatarButton({ user }: AvatarProps) {
             >
               <Check size={16} />
               <span>Completed</span>
-            </Button>
-          </Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem asChild className='p-0'>
-          <Link href='/settings'>
-            <Button
-              variant='outline'
-              className='flex justify-start gap-2 w-full'
-            >
-              <Settings size={16} />
-              <span>Settings</span>
             </Button>
           </Link>
         </DropdownMenuItem>

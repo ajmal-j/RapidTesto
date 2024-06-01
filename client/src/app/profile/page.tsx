@@ -1,7 +1,7 @@
 import Wrapper from "@/components/layout/Wrapper";
 import getSession from "@/lib/getSession";
 import { redirect } from "next/navigation";
-import SettingsPage from "./SettingsPage";
+import ProfilePage from "./ProfilePage";
 
 const Settings = async () => {
   const session = await getSession();
@@ -12,7 +12,7 @@ const Settings = async () => {
 
   return (
     <Wrapper>
-      <SettingsPage user={user} />
+      <ProfilePage user={user} />
     </Wrapper>
   );
 };

@@ -1,10 +1,5 @@
 "use client";
 
-import { User } from "next-auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { updateProfileSchema } from "@/lib/validations";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,14 +11,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { updateProfileSchema } from "@/lib/validations";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { User } from "next-auth";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { updateProfile } from "../../actions/settings";
+import { z } from "zod";
+import { updateProfile } from "../../actions/profile";
 
 type Props = {
   user: User;
 };
 
-const SettingsPage = ({ user }: Props) => {
+const ProfilePage = ({ user }: Props) => {
   const form = useForm<z.infer<typeof updateProfileSchema>>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
@@ -42,7 +42,7 @@ const SettingsPage = ({ user }: Props) => {
 
   return (
     <div className='flex flex-col gap-2'>
-      <h1 className='sm:text-4xl text-3xl'>Settings</h1>
+      <h1 className='sm:text-4xl text-3xl mb-5'>Profile</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <FormField
@@ -66,4 +66,4 @@ const SettingsPage = ({ user }: Props) => {
   );
 };
 
-export default SettingsPage;
+export default ProfilePage;

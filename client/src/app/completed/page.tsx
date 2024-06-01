@@ -80,7 +80,10 @@ const page = async ({ searchParams: { p = "1" } }: Props) => {
         <h5 className='text-muted-foreground'>Total : {totalDocuments}</h5>
         <div className='flex flex-col gap-3'>
           {completed.map((c, i) => (
-            <div key={i} className='flex flex-col gap-1 border px-3 rounded-xl bg-foreground/5'>
+            <div
+              key={i}
+              className='flex flex-col gap-1 border px-3 rounded-xl bg-foreground/5'
+            >
               <Accordion type='single' collapsible>
                 <AccordionItem value='item-1'>
                   <div className='flex gap-2 items-center'>
