@@ -2,6 +2,7 @@
 
 import getSession from "@/lib/getSession";
 import { updateChapterSchema } from "@/lib/validations";
+import { prisma } from "@/lib/prisma";
 
 interface IUpdateChapter {
   missedLetters: Map<string, number>;
