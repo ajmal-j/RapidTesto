@@ -135,20 +135,21 @@ export const useTyper = ({
       missedLetters,
     }));
 
-    // TODO: update chapter
-    await updateChapter({
-      result: {
-        accuracy: accuracy,
-        missed: missed,
-        speed: speed,
-        typed: typed.length,
-      },
-      missedLetters,
-      wordId,
-      time: seconds,
-      typedWords: typed,
-      words,
-    });
+    if (typed.length > 0) {
+      await updateChapter({
+        result: {
+          accuracy: accuracy,
+          missed: missed,
+          speed: speed,
+          typed: typed.length,
+        },
+        missedLetters,
+        wordId,
+        time: seconds,
+        typedWords: typed,
+        words,
+      });
+    }
     setIsFinished(() => true);
   }, [cursorPosition, seconds, timeLeft, totalTyped, typed, words, wordId]);
 
