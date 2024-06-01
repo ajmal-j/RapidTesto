@@ -15,6 +15,7 @@ import useSettings from "@/hooks/useSettings";
 import { useTyper } from "@/hooks/useTyper";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { GetCompleted } from "@/actions/completed";
+import BoostAccuracy from "../buttons/BoostAccuracy";
 
 export default function Main({ completed }: { completed?: string }) {
   const [isPending, startTransition] = useTransition();
@@ -68,11 +69,12 @@ export default function Main({ completed }: { completed?: string }) {
 
   return (
     <Wrapper>
-      <div className='flex gap-2 justify-between items-center'>
+      <div className='flex gap-3 justify-between items-center sm:flex-row flex-col'>
         <CountdownTimer timeLeft={timeLeft} isFinished={isFinished} />
         <div className='flex gap-2 items-center'>
           <KeyboardToggle {...{ handleKeydown }} />
-          <StartButton {...{ isEnabled, setIsEnabled, isLoading }} />
+          <BoostAccuracy {...{ setCustomWords, count }} />
+          {/* <StartButton {...{ isEnabled, setIsEnabled }} /> */}
           <GeneratePrompt {...{ setIsEnabled, count, setCustomWords }} />
           <SettingsDropdown
             {...{

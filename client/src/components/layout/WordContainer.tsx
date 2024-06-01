@@ -14,7 +14,7 @@ export default function WordContainer({
   return (
     <div
       className={cn(
-        `relative xl:text-4xl text-3xl leading-relaxed overflow-y-auto break-all mt-3 font-mono ${
+        `relative xl:text-4xl text-3xl leading-relaxed overflow-y-auto break-all mt-10 font-mono ${
           typeState === "finished"
             ? "max-h-[calc(100vh_-_30rem)]"
             : "max-h-[calc(100vh_-_20rem)]"

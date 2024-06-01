@@ -77,14 +77,17 @@ export default function GeneratePrompt({
   useEffect(() => {
     if (open) {
       setIsEnabled(() => false);
+    } else {
+      setIsEnabled(() => true);
     }
   }, [open, setIsEnabled]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button variant='outline'>
+        <Button variant='outline' className='flex gap-2 items-center'>
           <Sparkles size={17} />
+          <span>Generate</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
