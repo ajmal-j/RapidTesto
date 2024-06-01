@@ -76,30 +76,3 @@ const updateChapter = async (values: IUpdateChapter) => {
   }
 };
 export { updateChapter };
-
-// const currentLetters = await prisma?.missedLetters.findFirst({
-//   where: {
-//     userId,
-//   },
-// });
-
-// console.log(currentLetters);
-// if (!currentLetters) {
-//   const _letters = [...new Set(letters)];
-
-//   await prisma?.missedLetters.create({
-//     data: {
-//       userId,
-//       letters: _letters,
-//     },
-//   });
-
-//   return;
-// }
-
-// const updatedLetters = await GenerateUsecase.generateMissedLetters.execute({
-//   letters,
-//   currentLetters: currentLetters.letters,
-// });
-
-// console.log(updatedLetters);

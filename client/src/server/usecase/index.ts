@@ -1,5 +1,5 @@
 import {
-  ExtractMostMissedLettersPrompt,
+  GeneratePrecessionPracticePrompt,
   GenerateWordsPrompt,
 } from "@/utils/prompts";
 import { GenerateWords } from "./generateWords";
@@ -7,7 +7,7 @@ import { GenerateMissedLetters } from "./updateMissedLetters";
 
 const generateWords = new GenerateWords(GenerateWordsPrompt);
 const generateMissedLetters = new GenerateMissedLetters(
-  ExtractMostMissedLettersPrompt
+  GeneratePrecessionPracticePrompt
 );
 
 export const GenerateUsecase = {
