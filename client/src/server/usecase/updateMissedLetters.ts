@@ -28,6 +28,8 @@ export class GenerateMissedLetters {
       });
       const { response } = await this._model.generateContent(command);
 
+      console.log(response);
+
       const text = response.text();
       return text;
     } catch (error: Error | any) {

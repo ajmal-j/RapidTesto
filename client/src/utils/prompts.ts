@@ -15,9 +15,11 @@ export const GeneratePrecessionPracticePrompt = ({
   letters: Record<string, number>[];
   wordsLength: number;
 }) => {
-  return `I will provide you with a list of missed letters and their frequencies from a typing test. Your task is to use these letters and make a paragraph by shuffling the letters in the list based on their frequency. The result text must have a total word length of ${wordsLength}. It could look something like 'akb dd adfdh dkasdfdshfs dfsd' and add some spaces between words if needed. Missed letters: ${JSON.stringify(
+  return `I will provide you with a list of missed letters and their frequencies from a typing test. Your task is to use these letters and make a paragraph by shuffling the letters in the list based on their frequency. It could look something like 'akb dd adfdh dkasdfdshfs dfsd' and add some spaces between words if needed. Missed letters: ${JSON.stringify(
     letters
-  )}'.}`;
+  )}'.Only return the result text in the format of a string and the result string must have atleast a length of ${
+    wordsLength * 5
+  }`;
 };
 
 export type PromptUtils = {

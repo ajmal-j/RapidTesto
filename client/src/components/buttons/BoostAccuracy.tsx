@@ -1,9 +1,10 @@
 "use client";
 
-import axios, { AxiosError } from "axios";
-import { Rocket } from "lucide-react";
+import axios from "axios";
+import { Loader, Rocket } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
+import { useState } from "react";
 
 type Props = {
   setCustomWords: ({ words }: { words: string }) => void;
@@ -11,7 +12,10 @@ type Props = {
 };
 
 const BoostAccuracy = ({ setCustomWords, count }: Props) => {
+  const [loading, setLoading] = useState(false);
+
   const handleBoostAccuracy = async () => {
+    setLoading(true);
     try {
       const response = await axios.post("/api/precision_practice", {
         wordsLength: count,
@@ -28,6 +32,8 @@ const BoostAccuracy = ({ setCustomWords, count }: Props) => {
       toast.error(
         error?.response?.data ?? "Something went wrong. Please try again later."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,7 +43,11 @@ const BoostAccuracy = ({ setCustomWords, count }: Props) => {
       onClick={handleBoostAccuracy}
       className='gap-2 flex'
     >
-      <Rocket size={16} />
+      {loading ? (
+        <Loader size={16} className='animate-spin' />
+      ) : (
+        <Rocket size={16} />
+      )}
       <span>Boost Accuracy</span>
     </Button>
   );

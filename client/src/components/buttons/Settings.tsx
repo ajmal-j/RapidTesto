@@ -43,6 +43,11 @@ export default function SettingsDropdown({
     count,
     seconds,
   });
+
+  useEffect(() => {
+    setInput((prev) => ({ ...prev, count, seconds }));
+  }, [count, seconds]);
+
   const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const number = Number(e.target.value);
     if (isNaN(number)) return;
