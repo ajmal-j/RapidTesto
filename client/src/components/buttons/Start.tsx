@@ -3,13 +3,15 @@
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
+import { Loader } from "lucide-react";
 
 export default function StartButton({
   isEnabled,
-
+  isLoading,
   setIsEnabled,
 }: {
   isEnabled: boolean;
+  isLoading: boolean;
   setIsEnabled: Dispatch<SetStateAction<boolean>>;
 }) {
   return (
@@ -21,7 +23,11 @@ export default function StartButton({
         toast.info("Start typing.");
       }}
     >
-      Start
+      {isLoading ? (
+        <Loader size={16} className='animate-spin text-foreground' />
+      ) : (
+        "Start"
+      )}
     </Button>
   );
 }

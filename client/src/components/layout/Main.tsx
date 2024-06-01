@@ -13,11 +13,12 @@ import WordContainer from "@/components/layout/WordContainer";
 import Wrapper from "@/components/layout/Wrapper";
 import useSettings from "@/hooks/useSettings";
 import { useTyper } from "@/hooks/useTyper";
-import { useCallback, useEffect, useTransition } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import { GetCompleted } from "@/actions/completed";
 
 export default function Main({ completed }: { completed?: string }) {
   const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
   const { count, seconds, setCount, setSeconds, backspace, setBackspace } =
     useSettings();
   const {
@@ -41,10 +42,17 @@ export default function Main({ completed }: { completed?: string }) {
 
   const fetchCompleted = useCallback(async () => {
     if (!completed) return;
-    const data = await GetCompleted({
-      id: completed,
-    });
-    return data;
+    try {
+      setIsLoading(true);
+      const data = await GetCompleted({
+        id: completed,
+      });
+      return data;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [completed]);
 
   useEffect(() => {
@@ -64,7 +72,7 @@ export default function Main({ completed }: { completed?: string }) {
         <CountdownTimer timeLeft={timeLeft} isFinished={isFinished} />
         <div className='flex gap-2 items-center'>
           <KeyboardToggle {...{ handleKeydown }} />
-          <StartButton {...{ isEnabled, setIsEnabled }} />
+          <StartButton {...{ isEnabled, setIsEnabled, isLoading }} />
           <GeneratePrompt {...{ setIsEnabled, count, setCustomWords }} />
           <SettingsDropdown
             {...{
