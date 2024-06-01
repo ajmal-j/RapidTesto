@@ -16,6 +16,7 @@ import { useTyper } from "@/hooks/useTyper";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { GetCompleted } from "@/actions/completed";
 import BoostAccuracy from "../buttons/BoostAccuracy";
+import { Loader } from "lucide-react";
 
 export default function Main({ completed }: { completed?: string }) {
   const [isPending, startTransition] = useTransition();
@@ -72,6 +73,9 @@ export default function Main({ completed }: { completed?: string }) {
       <div className='flex gap-3 justify-between items-center sm:flex-row flex-col'>
         <CountdownTimer timeLeft={timeLeft} isFinished={isFinished} />
         <div className='flex gap-2 items-center'>
+          {isLoading && (
+            <Loader size={20} className='animate-spin text-foreground mx-2' />
+          )}
           <KeyboardToggle {...{ handleKeydown }} />
           <BoostAccuracy {...{ setCustomWords, count }} />
           {/* <StartButton {...{ isEnabled, setIsEnabled }} /> */}
