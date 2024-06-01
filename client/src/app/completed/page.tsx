@@ -42,6 +42,9 @@ const page = async ({}: Props) => {
         missedLetters: true,
         result: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   } catch (error) {
     console.log(error);
@@ -59,7 +62,16 @@ const page = async ({}: Props) => {
                 <AccordionItem value='item-1'>
                   <div className='flex gap-2 items-center'>
                     <div className='w-full flex-1'>
-                      <AccordionTrigger>{i + 1}. Words</AccordionTrigger>
+                      <AccordionTrigger>
+                        <span>
+                          {i + 1}. {c.createdAt.toDateString()}
+                          <span className='text-muted-foreground px-2'>at</span>
+                          {c.createdAt.toLocaleTimeString("en-IN", {
+                            hour: "numeric",
+                            minute: "numeric",
+                          })}
+                        </span>
+                      </AccordionTrigger>
                     </div>
                     <Link href={`/?completed=${c.id}`}>
                       <Button variant='outline' size='icon'>
