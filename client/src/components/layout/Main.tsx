@@ -72,14 +72,14 @@ export default function Main({ completed }: { completed?: string }) {
     <Wrapper>
       <div className='flex gap-3 justify-between items-center sm:flex-row flex-col'>
         <CountdownTimer timeLeft={timeLeft} isFinished={isFinished} />
-        <div className='flex gap-2 items-center'>
+        <div className='flex gap-2 items-center flex-wrap-reverse justify-center'>
           {isLoading && (
             <Loader size={20} className='animate-spin text-foreground mx-2' />
           )}
-          <KeyboardToggle {...{ handleKeydown }} />
           <BoostAccuracy {...{ setCustomWords, count }} />
           {/* <StartButton {...{ isEnabled, setIsEnabled }} /> */}
           <GeneratePrompt {...{ setIsEnabled, count, setCustomWords }} />
+          <KeyboardToggle {...{ handleKeydown }} />
           <SettingsDropdown
             {...{
               count,
