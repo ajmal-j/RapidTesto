@@ -1,15 +1,15 @@
 "use client";
 
-import axios from "axios";
-import { Loader, Rocket } from "lucide-react";
-import { toast } from "sonner";
-import { Button } from "../ui/button";
-import { useState } from "react";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import axios from "axios";
+import { Loader, Rocket } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
 
 type Props = {
   setCustomWords: ({ words }: { words: string }) => void;
@@ -61,7 +61,7 @@ const BoostAccuracy = ({ setCustomWords, count }: Props) => {
       <HoverCardContent className='w-full max-w-[400px] '>
         <p className='text-sm'>
           <Rocket size={16} className='animate-bounce inline me-2' />
-          *Enhance accuracy by generating new word sets based on frequently
+          Enhance accuracy by generating new word sets based on frequently
           missed letters. Requires completion of at least 5 chapters for
           analysis.
         </p>

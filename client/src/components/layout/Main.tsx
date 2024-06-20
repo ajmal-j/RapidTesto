@@ -1,11 +1,11 @@
 "use client";
 
-import GeneratePrompt from "@/components/layout/GeneratePrompt";
+import { GetCompleted } from "@/actions/completed";
 import KeyboardToggle from "@/components/buttons/Keyboard-toggle";
 import RestartButton from "@/components/buttons/Restart";
 import SettingsDropdown from "@/components/buttons/Settings";
-import StartButton from "@/components/buttons/Start";
 import CountdownTimer from "@/components/layout/CountdownTimer";
+import GeneratePrompt from "@/components/layout/GeneratePrompt";
 import GenerateWords from "@/components/layout/GenerateWords";
 import Results from "@/components/layout/Results";
 import Typings from "@/components/layout/Typings";
@@ -13,10 +13,9 @@ import WordContainer from "@/components/layout/WordContainer";
 import Wrapper from "@/components/layout/Wrapper";
 import useSettings from "@/hooks/useSettings";
 import { useTyper } from "@/hooks/useTyper";
-import { useCallback, useEffect, useState, useTransition } from "react";
-import { GetCompleted } from "@/actions/completed";
-import BoostAccuracy from "../buttons/BoostAccuracy";
 import { Loader } from "lucide-react";
+import { useCallback, useEffect, useState, useTransition } from "react";
+import BoostAccuracy from "../buttons/BoostAccuracy";
 
 export default function Main({ completed }: { completed?: string }) {
   const [isPending, startTransition] = useTransition();
@@ -77,7 +76,6 @@ export default function Main({ completed }: { completed?: string }) {
             <Loader size={20} className='animate-spin text-foreground mx-2' />
           )}
           <BoostAccuracy {...{ setCustomWords, count }} />
-          {/* <StartButton {...{ isEnabled, setIsEnabled }} /> */}
           <GeneratePrompt {...{ setIsEnabled, count, setCustomWords }} />
           <KeyboardToggle {...{ handleKeydown }} />
           <SettingsDropdown
