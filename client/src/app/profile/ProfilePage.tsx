@@ -13,7 +13,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { updateProfileSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader } from "lucide-react";
 import { User } from "next-auth";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -24,19 +26,25 @@ type Props = {
 };
 
 const ProfilePage = ({ user }: Props) => {
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof updateProfileSchema>>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
       name: user?.name ?? "",
     },
   });
-
+  const {
+    formState: { isDirty },
+  } = form;
   async function onSubmit(values: z.infer<typeof updateProfileSchema>) {
     try {
+      setLoading(true);
       await updateProfile(values);
       toast.success("Profile updated.");
     } catch (error) {
       toast.error("Something went wrong. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -59,7 +67,13 @@ const ProfilePage = ({ user }: Props) => {
               </FormItem>
             )}
           />
-          <Button type='submit'>Submit</Button>
+          <Button disabled={!isDirty} type='submit' className='w-[80px]'>
+            {loading ? (
+              <Loader size={20} className='animate-spin text-background mx-2' />
+            ) : (
+              "Update"
+            )}
+          </Button>
         </form>
       </Form>
     </div>
