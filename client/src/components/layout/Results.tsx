@@ -3,7 +3,7 @@
 import { TypeState } from "@/hooks/useTyper";
 import { formatPercentage } from "@/utils";
 import { motion } from "framer-motion";
-import { Asterisk } from "lucide-react";
+import { Asterisk, Flame } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -49,7 +49,7 @@ export default function Results({
         }[];
   };
 }) {
-  if (typeState !== "finished") return null;
+  // if (typeState !== "finished") return null;
 
   const initial = { opacity: 0, y: 30 };
   const animate = { opacity: 1, y: 0 };
@@ -113,21 +113,28 @@ export default function Results({
           </AccordionTrigger>
           <AccordionContent>
             <div className='flex flex-wrap flex-1 w-full gap-3 items-start justify-stretch'>
-              {!!normalizedMissedLetters.length
-                ? normalizedMissedLetters.map(({ letter, count }) => (
-                    <motion.div
-                      key={letter}
-                      {...{ initial, animate, transition: { duration: 0.5 } }}
-                      className='text-xl px-6 py-4 border rounded-xl text-nowrap flex items-center gap-2 flex-1 justify-between min-w-[150px]'
-                    >
-                      <span className='font-semibold'>{letter}</span>
-                      <span className='flex gap-1 text-foreground/70'>
-                        <Asterisk size={17} className='pt-1' />
-                        {count}
-                      </span>
-                    </motion.div>
-                  ))
-                : null}
+              {!!normalizedMissedLetters.length ? (
+                normalizedMissedLetters.map(({ letter, count }) => (
+                  <motion.div
+                    key={letter}
+                    {...{ initial, animate, transition: { duration: 0.5 } }}
+                    className='text-xl px-6 py-4 border rounded-xl text-nowrap flex items-center gap-2 flex-1 justify-between min-w-[150px]'
+                  >
+                    <span className='font-semibold'>{letter}</span>
+                    <span className='flex gap-1 text-foreground/70'>
+                      <Asterisk size={17} className='pt-1' />
+                      {count}
+                    </span>
+                  </motion.div>
+                ))
+              ) : (
+                <div className='w-full'>
+                  <motion.span className='flex items-center gap-2 justify-center'>
+                    No Missed Letter&apos;s
+                    <Flame size={17} />
+                  </motion.span>
+                </div>
+              )}
             </div>
           </AccordionContent>
         </AccordionItem>
