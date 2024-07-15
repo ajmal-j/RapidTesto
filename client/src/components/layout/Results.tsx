@@ -49,7 +49,7 @@ export default function Results({
         }[];
   };
 }) {
-  // if (typeState !== "finished") return null;
+  if (typeState !== "finished") return null;
 
   const initial = { opacity: 0, y: 30 };
   const animate = { opacity: 1, y: 0 };
